@@ -9,14 +9,49 @@ export default async function Home() {
   const session = await getServerAuthSession();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ffffff] from-60% to-white to-98%  text-neutral-700">
+      
+    {/* <!-- NAVIGATION BAR --> */}
+      {/* <div className="h-25 fixed top-0 z-10 box-border w-full bg-white bg-opacity-25 p-4 ">
+        <div className="flex flex-row">
+          <p>Menu bar</p>
+          <div className="ml-auto shrink-0">
+            <img src="https://assets.stickpng.com/images/588a6507d06f6719692a2d15.png" className="h-6"></img>
+          </div>
+        </div>
+      </div> */}
+
+
+
+
+
+      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">    
+        
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
+          <span className="text-[#cfb225]">An blog</span> website
         </h1>
+
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-2xl text-neutral-700">
+            {hello ? hello.greeting : "Loading tRPC query..."}
+          </p>
+{/* Sign in function */}
+          <div className="flex flex-col items-center justify-center gap-4">
+            <p className="text-center text-2xl text-neutral-700">
+              {session && <span>Logged in as {session.user?.name}</span>}
+            </p>
+            <Link
+              href={session ? "/api/auth/signout" : "/api/auth/signin"}
+              className="rounded-full bg-neutral-700/10 px-10 py-3 font-semibold no-underline transition hover:bg-neutral-700/5"
+            >
+              {session ? "Sign out" : "Sign in"}
+            </Link>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
           <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
+            className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20"
             href="https://create.t3.gg/en/usage/first-steps"
             target="_blank"
           >
@@ -27,7 +62,7 @@ export default async function Home() {
             </div>
           </Link>
           <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
+            className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20"
             href="https://create.t3.gg/en/introduction"
             target="_blank"
           >
@@ -38,23 +73,7 @@ export default async function Home() {
             </div>
           </Link>
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="text-center text-2xl text-white">
-              {session && <span>Logged in as {session.user?.name}</span>}
-            </p>
-            <Link
-              href={session ? "/api/auth/signout" : "/api/auth/signin"}
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-            >
-              {session ? "Sign out" : "Sign in"}
-            </Link>
-          </div>
-        </div>
+        
 
         <CrudShowcase />
       </div>
