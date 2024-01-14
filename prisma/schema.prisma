@@ -14,16 +14,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model Post {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   createdBy   User   @relation(fields: [createdById], references: [id])
+//   createdById String
+
+//   @@index([name])
+// } 
+
 model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
+  id        String   @id @default(cuid())
+  Title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   createdBy   User   @relation(fields: [createdById], references: [id])
   createdById String
 
-  @@index([name])
+  content   String?
+
+  coverPictureURL   String?
+
+  @@index([createdById])
 }
 
 // Necessary for Next auth

@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { FaBars, FaMagnifyingGlass, FaGithub } from "react-icons/fa6";
 import { CgDarkMode } from "react-icons/cg";
+import { getServerAuthSession } from "~/server/auth";
+
+const session = await getServerAuthSession();
+
 
 export default function Navbar() {
     return(
@@ -13,6 +17,8 @@ export default function Navbar() {
                     <Link href="/" className="text-black/70 no-underline hover:text-black">Home</Link>
                 </div>
                 <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10">
+                    
+                    <p> {session && <span>Create New Post</span>} </p>
                     <Link href="https://github.com/ngk-t/A-Blog-Plarform" ><FaGithub /></Link>
                     <Link href="/" ><CgDarkMode /></Link>
                     <Link href="/" className="text-black/70 no-underline hover:text-black"><FaMagnifyingGlass /></Link>
