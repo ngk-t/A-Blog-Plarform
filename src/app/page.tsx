@@ -4,9 +4,13 @@ import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
+// import { createTRPCReact } from '@trpc/react-query';
+
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
+  const data = await api.post.getAll.query();
+  // const getAllQuery = useQuery(['getAll'], api.post.getAll);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ffffff] from-60% to-white to-98%  text-neutral-700">
@@ -76,6 +80,23 @@ export default async function Home() {
         
 
         <CrudShowcase />
+
+        <div>
+          {data?.map((post) => (
+            <div key={post.id}>
+
+              <li className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
+                <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
+                
+                <p className="text-sm mt-1 text-justify">{post.content.slice(0, 150)}...</p>
+              </li>
+            </div>
+          ))}
+        </div>
+
+
+
+
       </div>
     </main>
   );
