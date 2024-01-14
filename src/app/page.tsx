@@ -88,7 +88,7 @@ export default async function Home() {
               <li className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
                 <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
                 
-                <p className="text-sm mt-1 text-justify">{post.content.slice(0, 150)}...</p>
+                <p className="text-sm mt-1 text-justify">{post.content ? post.content.slice(0, 150) : ''}...</p>
               </li>
             </div>
           ))}
