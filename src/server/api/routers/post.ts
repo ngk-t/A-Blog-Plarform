@@ -23,6 +23,24 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
+  // getOne: publicProcedure.query(({ctx}) => {
+  //   return ctx.db.post.findUnique({
+  //     where: { id }
+  //   })
+  // }),
+
+  getOne: publicProcedure
+  .input(z.object({ id: z.string() }))
+  .query((opts) => {
+    const { id } = opts.input;
+    const { ctx } = opts;
+    return ctx.db.post.findUnique({
+      where: { id }
+    });
+  }),
+
+  
+
 
   create: protectedProcedure
     .input(z.object({ 

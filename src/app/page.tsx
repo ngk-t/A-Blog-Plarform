@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
+import getFormattedDate from "lib/getFormattedDate";
 
 // import { createTRPCReact } from '@trpc/react-query';
 
@@ -10,6 +11,15 @@ export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
   const data = await api.post.getAll.query();
+  const postsWithFormattedDates = data.map(post => {
+    return {
+      ...post,
+      updatedAt: getFormattedDate(post.updatedAt.toISOString()),
+    };
+  });
+  
+
+
   // const getAllQuery = useQuery(['getAll'], api.post.getAll);
 
   return (
@@ -81,20 +91,27 @@ export default async function Home() {
 
         <CrudShowcase />
 
+
+
+
+        {/* BLOG FEED */}
+
         <div>
-          {data?.map((post) => (
-            <div key={post.id}>
+          {data?.map((post) => {
+            // Format the updatedAt date
+            const formattedDate = getFormattedDate(post.updatedAt.toISOString());
 
-              <li className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
-                <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
-                
-                <p className="text-sm mt-1 text-justify">{post.content ? post.content.slice(0, 150) : ''}...</p>
-              </li>
-            </div>
-          ))}
-        </div>
-
-
+            return (
+              <div key={post.id}>
+                <li className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
+                  <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
+                  <p className="text-xs">{formattedDate}</p>
+                  <p className="text-sm mt-0 text-justify">{post.content ? post.content.slice(0, 150) : ''}...</p>
+                </li>
+              </div>
+            );
+          })}
+  </div>
 
 
       </div>
