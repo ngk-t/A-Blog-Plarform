@@ -17,9 +17,7 @@ export default async function Post({ params } : { params : {postId : string}}) {
     const data = await api.post.getOne.query({ id: postId, });
     
     if (!data) {
-        return (
-            notFound(),
-        )
+        return notFound(),
     }
     
     const formattedDate = getFormattedDate(data.updatedAt.toISOString());
