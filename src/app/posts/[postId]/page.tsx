@@ -14,10 +14,10 @@ import getFormattedDate from "lib/getFormattedDate";
 export default async function Post({ params } : { params : {postId : string}}) {
     
     const {postId} = params
-    const data = await api.post.getOne.query({ id: postId, });
+    const data = await api.post.getOne.query({ id: postId });
     
     if (!data) {
-        return notFound(),
+        return notFound()
     }
     
     const formattedDate = getFormattedDate(data.updatedAt.toISOString());
