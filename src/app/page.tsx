@@ -39,16 +39,16 @@ export default async function Home() {
 
 
 
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">    
+      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-20 ">    
         
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
+        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] ">
           <span className="text-[#cfb225]">An blog</span> website
         </h1>
 
         <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-neutral-700">
+          {/* <p className="text-2xl text-neutral-700">
             {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
+          </p> */}
 {/* Sign in function */}
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-neutral-700">
@@ -63,6 +63,8 @@ export default async function Home() {
           </div>
         </div>
 
+
+{/* 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
           <Link
             className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20"
@@ -86,10 +88,10 @@ export default async function Home() {
               deploy it.
             </div>
           </Link>
-        </div>
+        </div> */}
         
 
-        <CrudShowcase />
+        {/* <CrudShowcase /> */}
 
 
 
@@ -103,7 +105,7 @@ export default async function Home() {
 
             return (
               <div key={post.id}>
-                <li className="flex max-w-xs flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
+                <li className="flex max-w-prose flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
                   <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
                   <p className="text-xs">{formattedDate}</p>
                   <p className="text-sm mt-0 text-justify">{post.content ? post.content.slice(0, 150) : ''}...</p>

@@ -30,13 +30,13 @@ export const postRouter = createTRPCRouter({
   // }),
 
   getOne: publicProcedure
-  .input(z.object({ id: z.string() }))
-  .query((opts) => {
-    const { id } = opts.input;
-    const { ctx } = opts;
-    return ctx.db.post.findUnique({
-      where: { id }
-    });
+    .input(z.object({ id: z.string() }))
+    .query((opts) => {
+      const { id } = opts.input;
+      const { ctx } = opts;
+      return ctx.db.post.findUnique({
+        where: { id }
+      });
   }),
 
   
@@ -74,4 +74,10 @@ export const postRouter = createTRPCRouter({
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
+
+  updatePost: protectedProcedure.query(() => {
+
+  }),
+
+
 });
