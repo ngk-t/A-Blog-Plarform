@@ -41,6 +41,7 @@ export const postRouter = createTRPCRouter({
 
   
 
+  // authorPostDelete: protectedProcedure,
 
   create: protectedProcedure
     .input(z.object({ 
@@ -77,6 +78,26 @@ export const postRouter = createTRPCRouter({
 
   updatePost: protectedProcedure.query(() => {
 
+  }),
+
+
+  postDelete: protectedProcedure
+  .input(z.object({ id: z.string() }))
+  .mutation(async ({ ctx, input }) => {
+    // Get the post
+    const post = await ctx.db.post.findUnique({
+      where: { id: input.id },
+    });
+
+    // Check if the post exists and if the user is the author
+    if (!post || post.createdById !== ctx.session.user.id) {
+      throw new Error('Post not found or you are not the author');
+    }
+
+    // Delete the post
+    return ctx.db.post.delete({
+      where: { id: input.id },
+    });
   }),
 
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth/next"
+import { getServerAuthSession } from "~/server/auth";
 import { authOptions } from "~/server/auth";
 import { redirect } from 'next/navigation';
 import { notFound } from "next/navigation";
@@ -31,10 +32,28 @@ export default async function Page() {
                 <h1 className="text-4xl font-extrabold tracking-tight sm:text-[5rem]">Create new post</h1>
             </div>
             <div className="py-12">
-                <CreatePost />
+                <CrudShowcase />
             </div>
         </main>
          
     )
 }    
 
+async function CrudShowcase() {
+    const session = await getServerAuthSession();
+    if (!session?.user) return null;
+  
+    const latestPost = await api.post.getLatest.query();
+  
+    return (
+      <div className="w-full max-w-xs">
+        {latestPost ? (
+          <p className="truncate">Your most recent post: {latestPost.Title}</p>
+        ) : (
+          <p>You have no posts yet.</p>
+        )}
+  
+        <CreatePost />
+      </div>
+    );
+  }
