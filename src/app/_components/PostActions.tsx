@@ -7,24 +7,18 @@ import { api } from "~/trpc/react";
 
 interface PostActionsProps {
     postId: string;
-  }
+}
 
 export function PostActions({ postId }: PostActionsProps){
-    // const session = getServerAuthSession()
-    
     const router = useRouter();
-    // const [postId, setPID] = useState("");
-    const [authorId, setAID] = useState("");
 
     const deletePostMutation = api.post.postDelete.useMutation({ 
         onSuccess: () => {
             router.refresh();
-            // setPID("");
-            setAID("");
         }, 
     });
 
-    const handleDelete = async (postId: string) => {
+    const handleDelete = async () => {
         try {
             // Make an API request to delete the post
             await deletePostMutation.mutateAsync({ id: postId });
@@ -39,10 +33,7 @@ export function PostActions({ postId }: PostActionsProps){
             <button className="text-black/70 hover:text-black">Edit</button>
             <button
                 className="text-black/70 hover:text-black"
-                onClick={() => {
-                    handleDelete(postId);
-                    console.log("Hello World");
-                }}
+                onClick={handleDelete}
                 >
                 Delete
             </button>
