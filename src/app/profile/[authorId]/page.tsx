@@ -1,27 +1,23 @@
-"use client"
-
 
 import Link from "next/link";
 
 import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
-import { api } from "~/trpc/react";
-import {authOptions} from "next-auth/react";
+import { api } from "~/trpc/server";
 import getFormattedDate from "lib/getFormattedDate";
+import { PostActions } from "~/app/_components/PostActions";
+// import PostActions from "~/app/_components/PostActions";
 
 
 
-export default function Profile({
-  params,
-}: {
-  params: { authorId: string };
-}) {
+export default async function Profile({ params } : { params : {authorId : string}}) {
+  
   const { authorId } = params;
-//   const session =  getServerAuthSession();
-//   const data =  api.post.getAll.query();
+  const session =  await getServerAuthSession();
+  const data = await api.post.getAll.query();
 
-  const {data: sessionData} = useSession();
-  const {data} = api.post.getAll.useQuery();
+  // const {data: sessionData} = useSession();
+  // const {data} = api.post.getAll.useQuery();
     
 //   const deletePost = api.post.postDelete.mutate();
 
@@ -72,19 +68,12 @@ export default function Profile({
                       {post.Title}
                     </Link>
 
-                    <div className="my-auto flex gap-3 text-sm underline">
-                      {/* <button className="text-black/70 hover:text-black">Edit</button> */}
-                      <button
-                        className="text-black/70 hover:text-black"
-                        onClick={() => {
-                            // handleDelete(post.id);
-                            console.log("Hello World");
-                        }}
-                      >
-                        Delete
-                      </button>
 
-                      {/* <button className="text-black/70 hover:text-black">Archive</button> */}
+                    {/* Import PostActions Buttons as client component */}
+                    <div>
+
+                      <PostActions postId={post.id} />
+
                     </div>
                   </div>
                   <p className="text-xs">{formattedDate}</p>

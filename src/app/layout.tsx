@@ -7,9 +7,6 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
-import { getServerAuthSession } from "~/server/auth";
-import { SessionProvider } from "next-auth/react";
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -21,16 +18,12 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
-  const session = await getServerAuthSession()
-
   return (
-    <SessionProvider session={session}>
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
@@ -39,6 +32,5 @@ export default async function RootLayout({
         </TRPCReactProvider>
       </body>
     </html>
-    </SessionProvider>
   );
 }
