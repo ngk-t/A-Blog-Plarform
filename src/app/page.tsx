@@ -4,19 +4,53 @@ import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import getFormattedDate from "lib/getFormattedDate";
-
 // import { createTRPCReact } from '@trpc/react-query';
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
-  const data = await api.post.getAll.query();
-  const postsWithFormattedDates = data.map(post => {
-    return {
-      ...post,
-      updatedAt: getFormattedDate(post.updatedAt.toISOString()),
-    };
-  });
+  // const data = await api.post.getAll.query();
+
+  // let data: any = await api.post.getAll.query();
+
+  // data = await Promise.all(data.map(async (post: any) => {
+  //   const author = await api.post.getAuthor.query({ id: post.createdById });
+  //   return { ...post, authorName: author?.name, authorImage: author?.image };
+  // }));
+
+
+  // console.log(data)
+ 
+
+  type PostData = {
+    id: string;
+    Title: string;
+    archived: boolean | null;
+    createdAt: Date;
+    updatedAt: Date;
+    createdById: string;
+    content: string | null;
+    coverPictureURL: string | null;
+  };
+  
+  type Post = PostData & {
+    authorName: string | null;
+    authorImage: string | null;
+  };
+  
+  let oldData: PostData[] = await api.post.getAll.query();
+
+  // Add author's name to each post
+  let newData: Post[] = await Promise.all(oldData.map(async (post: PostData) => {
+    const author = await api.post.getAuthor.query({ id: post.createdById });
+    return { ...post, authorName: author?.name, authorImage: author?.image } as Post;
+  }));
+
+  // Now TypeScript knows that newData is an array of Post objects
+
+
+  
+  console.log(newData)
   
 
 
@@ -99,21 +133,24 @@ export default async function Home() {
         {/* BLOG FEED */}
 
         <div>
-          {data?.map((post) => {
+          {newData?.filter(post => !post.archived).map((post) => {
             // Format the updatedAt date
-            const formattedDate = getFormattedDate(post.updatedAt.toISOString());
+            const formattedDate = getFormattedDate(post.createdAt.toISOString());
+            // const author = getAuthor(post.createdById);
+            
 
             return (
               <div key={post.id}>
                 <li className="flex max-w-prose flex-col gap-4 rounded-xl bg-neutral-700/10 p-4 hover:bg-neutral-700/20 my-4">
                   <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
+                  <p className="text-xs">by <span className="font-bold">{post.authorName}</span></p>
                   <p className="text-xs">{formattedDate}</p>
                   <p className="text-sm mt-0 text-justify">{post.content ? post.content.slice(0, 150) : ''}...</p>
                 </li>
               </div>
             );
           })}
-  </div>
+        </div>
 
 
       </div>

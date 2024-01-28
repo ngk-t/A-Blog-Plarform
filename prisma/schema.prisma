@@ -29,6 +29,7 @@ datasource db {
 model Post {
   id        String   @id @default(cuid())
   Title     String
+  archived  Boolean?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

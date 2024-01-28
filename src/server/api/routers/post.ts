@@ -39,7 +39,20 @@ export const postRouter = createTRPCRouter({
       });
   }),
 
-  
+  getAuthor: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query((opts) => {
+      const { id } = opts.input;
+      const { ctx } = opts;
+      return ctx.db.user.findUnique({
+        where: { id },
+        select: {
+          name: true,
+          image: true
+        }
+      });
+  }),
+
 
   // authorPostDelete: protectedProcedure,
 
@@ -79,6 +92,29 @@ export const postRouter = createTRPCRouter({
   // updatePost: protectedProcedure.query(() => {
 
   // }),
+
+  postToggleArchive: protectedProcedure
+  .input(z.object({ id: z.string() }))
+  .mutation(async ({ ctx, input }) => {
+    // Get the post
+    const post = await ctx.db.post.findUnique({
+      where: { id: input.id },
+    });
+
+    // Check if the post exists and if the user is the author
+    if (!post || post.createdById !== ctx.session.user.id) {
+      throw new Error('Post not found or you are not the author');
+    }
+
+    // Toggle the archived status
+    const newStatus = post.archived === true ? false : true;
+
+    // Update the post
+    return ctx.db.post.update({
+      where: { id: input.id },
+      data: { archived: newStatus },
+    });
+  }),
 
 
   postDelete: protectedProcedure
