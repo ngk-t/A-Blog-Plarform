@@ -38,10 +38,10 @@ export default async function Home() {
     authorImage: string | null;
   };
   
-  let oldData: PostData[] = await api.post.getAll.query();
+  const oldData: PostData[] = await api.post.getAll.query();
 
   // Add author's name to each post
-  let newData: Post[] = await Promise.all(oldData.map(async (post: PostData) => {
+  const newData: Post[] = await Promise.all(oldData.map(async (post: PostData) => {
     const author = await api.post.getAuthor.query({ id: post.createdById });
     return { ...post, authorName: author?.name, authorImage: author?.image } as Post;
   }));

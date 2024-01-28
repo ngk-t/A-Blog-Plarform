@@ -24,7 +24,7 @@ export default async function Profile({ params } : { params : {authorId : string
     <main className="flex min-h-screen flex-col items-center justify-center bg-white  text-neutral-700 overflow-auto">
       <div className="bg-[#e9d051] p-3 content-center w-full h-64 flex items-center justify-center">
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-[5rem]">
-          {author?.name}'s Profile
+          {author?.name}&apos;s Profile
         </h1>
       </div>
 
@@ -63,7 +63,7 @@ export default async function Profile({ params } : { params : {authorId : string
                     {/* Import PostActions Buttons as client component */}
                     <div>
 
-                      {post.createdById === session?.user.id && <PostActions postId={post.id} archived={post.archived || false} />}
+                      {post.createdById === session?.user.id && <PostActions postId={post.id} archived={post.archived ?? false} />}
 
                     </div>
                   </div>
