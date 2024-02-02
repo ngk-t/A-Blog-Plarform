@@ -39,8 +39,9 @@ const SearchPage = () => {
       }
     };
     
-    fetchData();
+    fetchData().catch(error => console.error("An error occurred:", error));
   }, [encodedSearchQuery]);
+  
   
   
 
