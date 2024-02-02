@@ -26,7 +26,7 @@ const SearchInput = () => {
     return (
         <form className="flex justify-center w-full" onSubmit={onSearch}>
             <input
-                value={searchQuery || ""}
+                value={searchQuery ?? ""}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 className="w-full rounded-l-full px-4 py-2 text-black bg-neutral-700/5 text-left focus:outline-none"
                 placeholder="Search"

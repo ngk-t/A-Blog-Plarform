@@ -17,7 +17,7 @@ type Post = {
 
 const SearchPage = () => {
   const search = useSearchParams();
-  const searchQuery = (search ? search.get('q') : null) || "";
+  const searchQuery = (search ? search.get('q') : null) ?? "";
   const encodedSearchQuery = encodeURI(searchQuery ?? "");
 
   const [posts, setPosts] = useState<Post[]>([]);
