@@ -20,8 +20,49 @@ export const postRouter = createTRPCRouter({
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        createdBy: true, // Include the createdBy relation
+      },
     });
   }),
+
+  getSearch: publicProcedure.input(z.object({ 
+    query: z.string().min(1),
+  }))
+  .query(async ({ ctx, input }) => {
+    return await ctx.db.post.findMany({
+      where: {
+        OR: [
+          {
+            Title: {
+              contains: input.query,
+              mode: "insensitive",
+            },
+          },
+          {
+            content: {
+              contains: input.query,
+              mode: "insensitive",
+            },
+          },
+          {
+            createdBy: {
+                name: {
+                  contains: input.query,
+                  mode: "insensitive",
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        createdBy: true, // Include the createdBy relation
+      },
+    });
+  }),
+  
+
+
 
   // getOne: publicProcedure.query(({ctx}) => {
   //   return ctx.db.post.findUnique({
@@ -35,7 +76,10 @@ export const postRouter = createTRPCRouter({
       const { id } = opts.input;
       const { ctx } = opts;
       return ctx.db.post.findUnique({
-        where: { id }
+        where: { id },
+        include: {
+          createdBy: true, // Include the createdBy relation
+        },
       });
   }),
 

@@ -4,6 +4,7 @@ import { CgDarkMode } from "react-icons/cg";
 import { getServerSession } from "next-auth/next"
 import { getServerAuthSession } from "~/server/auth";
 import { authOptions } from "~/server/auth";
+import SearchInput from "./SearchBox";
 
 
 export default async function Navbar() {
@@ -17,8 +18,8 @@ export default async function Navbar() {
                 <div className="prose prose-xl mx-auto">
                     <Link href="/" className="text-black/70 no-underline hover:text-black">Home</Link>
                 </div>
-                <div className="prose prose-xl mx-auto">
-                    <Link href="/" className="text-black/70 no-underline hover:text-black">Home</Link>
+                <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10">
+                    <SearchInput />
                 </div>
                 <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10">
                     {/* {status === "authenticated" && (<p> <span>Create New Post</span> </p>)} */}
@@ -26,7 +27,7 @@ export default async function Navbar() {
                     <Link href="/create-post" className="text-black/70 no-underline hover:text-black"> {session && <span>Create New Post</span>} </Link>
                     <Link href="https://github.com/ngk-t/A-Blog-Plarform" ><FaGithub /></Link>
                     <Link href="/" ><CgDarkMode /></Link>
-                    <Link href="/" className="text-black/70 no-underline hover:text-black"><FaMagnifyingGlass /></Link>
+                    {/* <Link href="/" className="text-black/70 no-underline hover:text-black"><FaMagnifyingGlass /></Link> */}
                     <Link href="/" ><FaBars /></Link>
                 </div>
             </div>
