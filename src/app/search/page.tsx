@@ -28,11 +28,16 @@ const SearchPage = () => {
   const searchPosts = api.post.getSearch.useQuery({query: searchQuery});
 
   useEffect(() => {
-    if (encodedSearchQuery) {
-      setLoading(true);
-      searchPosts.refetch();
-    }
+    const fetchData = async () => {
+      if (encodedSearchQuery) {
+        setLoading(true);
+        await searchPosts.refetch();
+      }
+    };
+  
+    fetchData();
   }, [encodedSearchQuery]);
+  
 
   if (searchPosts.status === 'loading') {
     return (
