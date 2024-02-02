@@ -31,12 +31,17 @@ const SearchPage = () => {
     const fetchData = async () => {
       if (encodedSearchQuery) {
         setLoading(true);
-        await searchPosts.refetch();
+        try {
+          await searchPosts.refetch();
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
       }
     };
-  
+    
     fetchData();
   }, [encodedSearchQuery]);
+  
   
 
   if (searchPosts.status === 'loading') {
