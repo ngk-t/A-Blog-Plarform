@@ -71,7 +71,7 @@ export default async function Page({ params } : { params : {postId : string}}) {
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#ffffff]  text-neutral-700">
       <div className="w-2/3 items-center justify-center  bg-[#e9d051] p-3 content-center h-60">
         <h1 className="text-1xl font-extrabold tracking-tight sm:text-[2rem] p-8 pb-10">
-          Edit "<span className="text-neutral-500 text-1x1 sm:text-[1.6rem]">{data?.Title}</span>"
+          Edit &ldquo<span className="text-neutral-500 text-1x1 sm:text-[1.6rem]">{data?.Title}</span>&rdquo
         </h1>
         {data && <CrudShowcase postData={data} />}
       </div>
