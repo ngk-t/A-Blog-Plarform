@@ -35,7 +35,7 @@ export default async function Post({ params } : { params : {postId : string}}) {
                     {/* <p>{`${data?.createdBy.name}`}</p> */}
                     <p className="text-xs">{formattedDate}</p>
                     
-                    <p className="text-sm mt-0 text-justify indent-4 leading-relaxed">{`${data.content}`}</p>
+                    <div className="text-sm mt-0 text-justify indent-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: data.content ?? "" }}/>
                     
                 </div>
             </div>

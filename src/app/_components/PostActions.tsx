@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react"
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "~/trpc/react";
@@ -56,7 +57,7 @@ export function PostActions({ postId, archived }: PostActionsProps){
 
     return (
         <div className="my-auto flex gap-3 text-sm underline">
-            <button className="text-black/70 hover:text-black">Edit</button>
+            <Link href={`/posts/${postId}/edit`} className="text-black/70 no-underline hover:text-black">Edit</Link>
             <button
                 className="text-black/70 hover:text-black"
                 onClick={handleDelete}

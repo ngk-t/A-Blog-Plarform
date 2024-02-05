@@ -77,7 +77,15 @@ export function CreatePost() {
 
   return (
     <Form {...form}>
-        <form className="pt-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <form 
+            className="pt-4" 
+            // onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit)} onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.target === e.currentTarget) {
+                  e.preventDefault();
+                }
+              }}
+            >
             <FormField
                 control={form.control}
                 name="Title"
@@ -111,7 +119,10 @@ export function CreatePost() {
                     <FormItem>
                         <FormLabel>Content</FormLabel>
                         <FormControl>
-                            <Tiptap content={""} onChange={field.onChange}/>
+                            <Tiptap 
+                                content={""} 
+                                onChange={field.onChange} 
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>

@@ -28,7 +28,7 @@ export default async function Navbar() {
                     <Link href="https://github.com/ngk-t/A-Blog-Plarform" ><FaGithub /></Link>
                     <Link href="/" ><CgDarkMode /></Link>
                     {/* <Link href="/" className="text-black/70 no-underline hover:text-black"><FaMagnifyingGlass /></Link> */}
-                    <Link href="/" ><FaBars /></Link>
+                    {/* <Link href="/" ><FaBars /></Link> */}
                 </div>
             </div>
         </nav>

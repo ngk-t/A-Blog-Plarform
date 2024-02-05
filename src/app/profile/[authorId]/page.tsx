@@ -23,7 +23,7 @@ export default async function Profile({ params } : { params : {authorId : string
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white  text-neutral-700 overflow-auto">
       <div className="bg-[#e9d051] p-3 content-center w-full h-64 flex items-center justify-center">
-        <h1 className="text-3xl font-extrabold tracking-tight sm:text-[5rem]">
+        <h1 className="text-3xl font-extrabold tracking-tight sm:text-[2rem] md:text-[4rem] lg:text-[5rem]">
           {author?.name}&apos;s Profile
         </h1>
       </div>
@@ -74,9 +74,11 @@ export default async function Profile({ params } : { params : {authorId : string
                   {post.archived && <p className="text-red-500 font-bold no-underline ">[ARCHIVED]</p>}
                   
                   {/* Shows Post Content Preview */}
-                  <p className="mt-0 text-justify text-sm">
-                    {post.content ? post.content.slice(0, 150) : ""}...
-                  </p>
+                  <div
+                      className="... mt-0 overflow-hidden text-clip text-justify indent-4 text-sm leading-relaxed h-10"
+                      dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
+                    />
+                  <p>...</p>
                 </li>
               </div>
             );

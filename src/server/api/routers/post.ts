@@ -137,6 +137,28 @@ export const postRouter = createTRPCRouter({
 
   // }),
 
+  postUpdate: protectedProcedure
+  .input(z.object({
+    id: z.string(),
+    Title: z.string().min(1),
+    content: z.string().min(1),
+    coverPictureURL: z.string().min(0),
+  }))
+  .mutation(async ({ ctx, input }) => {
+    // simulate a slow db call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return ctx.db.post.update({
+      where: { id: input.id },
+      data: {
+        Title: input.Title,
+        content: input.content,
+        coverPictureURL: input.coverPictureURL,
+      },
+    });
+  }),
+
+
   postToggleArchive: protectedProcedure
   .input(z.object({ id: z.string() }))
   .mutation(async ({ ctx, input }) => {

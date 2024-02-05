@@ -9,7 +9,7 @@ export default function Tiptap({
     content,
     onChange,
 }: {
-    content: string
+    content: string | null
     onChange: (richText: string) => void
 }) {
     const editor = useEditor({
@@ -35,6 +35,13 @@ export default function Tiptap({
             console.log(editor.getHTML())
         },
     })
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            editor?.commands.insertContent('\n');
+        }
+    };
 
     return (
         <div className='flex flex-col justify-stretch min-h-[300px]'>
