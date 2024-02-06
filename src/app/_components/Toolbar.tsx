@@ -8,10 +8,13 @@ import {
     List,
     ListOrdered,
     Heading2,
-    Underline,
+    Underline as UnderlineIcon,
+    Superscript,
+    Subscript,
 } from "lucide-react"
 
 import { Toggle } from "~/components/ui/toggle"
+// import Underline from "@tiptap/extension-underline"
 
 type Props = {
     editor: Editor | null
@@ -56,6 +59,16 @@ export function Toolbar({ editor }: Props) {
 
             <Toggle
                 size="sm"
+                pressed={editor.isActive("underline")}
+                onPressedChange={() => 
+                    editor.chain().focus().toggleUnderline().run()
+                }
+            >
+                <UnderlineIcon className="h-4 w-4" />
+            </Toggle>
+
+            <Toggle
+                size="sm"
                 pressed={editor.isActive("strike")}
                 onPressedChange={() => 
                     editor.chain().focus().toggleStrike().run()
@@ -65,6 +78,26 @@ export function Toolbar({ editor }: Props) {
             </Toggle>
 
             <Toggle
+                size="sm"
+                pressed={editor.isActive("subscript")}
+                onPressedChange={() => 
+                    editor.chain().focus().toggleSubscript().run()
+                }
+            >
+                <Subscript className="h-4 w-4" />
+            </Toggle>
+
+            <Toggle
+                size="sm"
+                pressed={editor.isActive("superscript")}
+                onPressedChange={() => 
+                    editor.chain().focus().toggleSuperscript().run()
+                }
+            >
+                <Superscript className="h-4 w-4" />
+            </Toggle>
+
+            {/* <Toggle
                 size="sm"
                 pressed={editor.isActive("bulletList")}
                 onPressedChange={() => 
@@ -82,7 +115,7 @@ export function Toolbar({ editor }: Props) {
                 }
             >
                 <ListOrdered className="h-4 w-4" />
-            </Toggle>
+            </Toggle> */}
 
         </div>
     )

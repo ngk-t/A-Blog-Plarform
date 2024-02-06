@@ -27,6 +27,7 @@ export function CreatePost() {
   const [Title, setName] = useState("");
   const [content, setContent] = useState("");
   const [coverPictureURL, setCoverURL] = useState("");
+  const [imageUrl, setImageUrl] = useState('');
 
   const formSchema = z.object({
     Title: z
@@ -106,12 +107,19 @@ export function CreatePost() {
                     <FormItem>
                         <FormLabel>Cover Picture (URL)</FormLabel>
                         <FormControl>
-                            <Input placeholder="URL" {...field} />
+                            <Input 
+                                placeholder="URL" {...field}
+                                onChange={(e) => {
+                                    field.onChange(e);  // call the original onChange
+                                    setImageUrl(e.target.value);  // update the imageUrl state
+                                }}
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
             />
+            {imageUrl && <div className="m-4 border-4 border-neutral-200 rounded shadow-2xl"><img src={imageUrl} alt="Cover" className="object-contain h-50 w-full" /></div>}
             <FormField
                 control={form.control}
                 name="content"

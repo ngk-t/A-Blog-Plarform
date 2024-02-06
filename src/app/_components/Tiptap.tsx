@@ -4,6 +4,9 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Toolbar } from './Toolbar'
 import Heading from '@tiptap/extension-heading'
+import Underline from '@tiptap/extension-underline'
+import Superscript from '@tiptap/extension-superscript'
+import Subscript from '@tiptap/extension-subscript'
 
 export default function Tiptap({
     content,
@@ -15,6 +18,9 @@ export default function Tiptap({
     const editor = useEditor({
         extensions: [
             StarterKit.configure({}), 
+            Underline,
+            Superscript,
+            Subscript,
             // Heading.configure({
             //     levels: [2],
             //     HTMLAttributes: {
