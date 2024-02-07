@@ -6,8 +6,21 @@ import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { api } from "~/trpc/server";
 import { CreatePost } from "../_components/create-post";
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
+
 export default async function Page() {
   const session = await getServerSession(authOptions);
+  const createMarkup = (html : string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
+  
+  const getPlainText = (html : string) => {
+    const dom = new JSDOM(html);
+    return dom.window.document.body.textContent ?? "";
+  }
 
   if (!session) {
     return (

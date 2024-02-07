@@ -13,20 +13,20 @@ export default async function Navbar() {
     
 
     return(
-        <nav className="h-25 fixed top-0 z-10 box-border w-full bg-white bg-opacity-25 p-4 backdrop-blur-md border-3 border-white border-opacity-10">
+        <nav className="h-15 fixed top-0 z-10 box-border w-full bg-white bg-opacity-25  backdrop-blur-md border-3 border-white border-opacity-10 ">
             <div className="prose prose-xl mx-auto flex justify-between flex-col sm:flex-row">
-                <div className="prose prose-xl mx-auto">
+                <div className="prose prose-xl mx-auto allign-middle pt-4">
                     <Link href="/" className="text-black/70 no-underline hover:text-black">Home</Link>
                 </div>
-                <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10">
+                <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10 py-[0.5rem]">
                     <SearchInput />
                 </div>
-                <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10">
+                <div className="prose prose-xl mx-auto flex flex-row allign-middle gap-10 pt-4">
                     {/* {status === "authenticated" && (<p> <span>Create New Post</span> </p>)} */}
                     <Link href={`/profile/${session?.user?.id}`} className="text-black/70 no-underline hover:text-black"> {session && <span>Profile</span>} </Link>
                     <Link href="/create-post" className="text-black/70 no-underline hover:text-black"> {session && <span>Create New Post</span>} </Link>
-                    <Link href="https://github.com/ngk-t/A-Blog-Plarform" ><FaGithub /></Link>
-                    <Link href="/" ><CgDarkMode /></Link>
+                    <Link href="https://github.com/ngk-t/A-Blog-Plarform" className="text-black/70 no-underline hover:text-black"><FaGithub /></Link>
+                    <Link href="/" className="text-black/70 no-underline hover:text-black"><CgDarkMode /></Link>
                     {/* <Link href="/" className="text-black/70 no-underline hover:text-black"><FaMagnifyingGlass /></Link> */}
                     {/* <Link href="/" ><FaBars /></Link> */}
                 </div>

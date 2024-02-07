@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { api } from "~/trpc/server";
 import { EditPost } from "~/app/_components/post-edit";
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
 
 interface PostDataType {
     id: string;
@@ -31,6 +33,16 @@ export default async function Page({ params } : { params : {postId : string}}) {
   const session = await getServerSession(authOptions);
   const {postId} = params
   const data = await api.post.getOne.query({ id: postId });
+  const createMarkup = (html : string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
+  
+  const getPlainText = (html : string) => {
+    const dom = new JSDOM(html);
+    return dom.window.document.body.textContent ?? "";
+  }
 
   if (!session) {
     return (
@@ -82,7 +94,7 @@ export default async function Page({ params } : { params : {postId : string}}) {
 async function CrudShowcase({ postData }: { postData: PostDataType }) {
   const session = await getServerAuthSession();
   if (!session?.user) return null;
-  console.log("LOGGGGG", postData)
+  // console.log("LOGGGGG", postData)
 
 //   const latestPost = await api.post.getLatest.query();
 

@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import getFormattedDate from "lib/getFormattedDate";
+// import DOMPurify from 'dompurify';
+// import { JSDOM } from 'jsdom';
 
 type Post = {
   id: string;
@@ -19,6 +21,11 @@ const SearchPage = () => {
   const search = useSearchParams();
   const searchQuery = (search ? search.get('q') : null) ?? "";
   const encodedSearchQuery = encodeURI(searchQuery ?? "");
+
+  const stripHTMLTags = (html: string) => {
+    return html.replace(/<[^>]*>?/gm, '');
+  }
+
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -67,7 +74,7 @@ const SearchPage = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white  text-neutral-700 overflow-auto">
       <div className="bg-[#f4f4f4] p-3 content-center w-full h-64 flex items-center justify-center">
-        <h1 className="text-3xl sm:text-[3.3rem] font-extrabold tracking-tight ">
+        <h1 className="text-3xl sm:text-[3.3rem] font-extrabold tracking-tight">
           Search Results for: {searchQuery}
         </h1>
       </div>
@@ -82,16 +89,17 @@ const SearchPage = () => {
                         <Link className="hover:text-black/70 dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
                         <p className="text-xs">by <span className="font-bold">{post.createdBy.name}</span></p>
                         <p className="text-xs">{formattedDate}</p>
-                        <div
-                      className="... mt-0 overflow-hidden text-clip text-justify indent-4 text-sm leading-relaxed h-10"
-                      dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
-                    />
-                  <p>...</p>
+                        <p className="mt-0 text-justify text-sm text-neutral-500">
+                          {post.content ? stripHTMLTags(post.content).slice(0, 250) + "..." : ""}
+                        </p>
                     </li>
                 </div>
             )
           
         })}
+
+        {postsData.length === 0 && <p className="font-bold p-4" >No results found</p>}
+
       </div>
     </main>
   );

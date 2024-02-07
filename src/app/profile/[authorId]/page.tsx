@@ -6,6 +6,8 @@ import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import getFormattedDate from "lib/getFormattedDate";
 import { PostActions } from "~/app/_components/PostActions";
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
 
 
 
@@ -17,6 +19,17 @@ export default async function Profile({ params } : { params : {authorId : string
   const session =  await getServerAuthSession();
   const data = await api.post.getAll.query();
   const author = await api.post.getAuthor.query({ id: authorId });
+
+  const createMarkup = (html : string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
+  
+  const getPlainText = (html : string) => {
+    const dom = new JSDOM(html);
+    return dom.window.document.body.textContent ?? "";
+  }
 
 
 
@@ -74,11 +87,9 @@ export default async function Profile({ params } : { params : {authorId : string
                   {post.archived && <p className="text-red-500 font-bold no-underline ">[ARCHIVED]</p>}
                   
                   {/* Shows Post Content Preview */}
-                  <div
-                      className="... mt-0 overflow-hidden text-clip text-justify indent-4 text-sm leading-relaxed h-10"
-                      dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
-                    />
-                  <p>...</p>
+                  <p className="mt-0 text-justify text-sm text-neutral-500">
+                      {post.content ? getPlainText(post.content).slice(0, 250) + "..." : ""}
+                  </p>
                 </li>
               </div>
             );
