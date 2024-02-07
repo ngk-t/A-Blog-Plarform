@@ -40,8 +40,8 @@ export default async function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#ffffff]  text-neutral-700">
-      <div className="w-2/3 items-center justify-center  bg-[#e9d051] p-3 content-center h-60">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-[5rem] p-8 pb-10">
+      <div className="w-full md:w-2/3 items-center justify-center  bg-[#e9d051] p-3 content-center h-60">
+        <h1 className="text-4xl font-extrabold tracking-tight md:text-[3.5rem] lg:text-[5rem] p-8 pb-10">
           Create new post
         </h1>
         <CrudShowcase />

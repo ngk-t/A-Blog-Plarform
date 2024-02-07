@@ -81,8 +81,8 @@ export default async function Page({ params } : { params : {postId : string}}) {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#ffffff]  text-neutral-700">
-      <div className="w-2/3 items-center justify-center  bg-[#e9d051] p-3 content-center h-60">
-        <h1 className="text-1xl font-extrabold tracking-tight sm:text-[2rem] p-8 pb-10">
+      <div className="w-full md:w-2/3 items-center justify-center  bg-[#e9d051] p-3 content-center h-60">
+        <h1 className="text-1xl sm:text-[1.5rem] font-extrabold tracking-tight md:text-[2rem] p-8 pb-10">
           Edit &ldquo;<span className="text-neutral-500 text-1x1 sm:text-[1.6rem]">{data?.Title}</span>&rdquo;
         </h1>
         {data && <CrudShowcase postData={data} />}
@@ -99,7 +99,7 @@ async function CrudShowcase({ postData }: { postData: PostDataType }) {
 //   const latestPost = await api.post.getLatest.query();
 
   return (
-    <div className="max-w-2/3 px-4 mx-3 pt-4 py-8 gap-4 bg-[#ffffff]/40 backdrop-blur-2xl rounded-lg">
+    <div className=" max-w-2/3 px-4 mx-3 pt-4 py-8 gap-4 bg-[#ffffff]/40 backdrop-blur-2xl rounded-lg">
       <EditPost postId={postData.id} postTitle={postData.Title} postPicURL={postData.coverPictureURL} postContent={postData.content} />
     </div>
   );
