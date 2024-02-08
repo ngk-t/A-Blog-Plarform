@@ -30,6 +30,13 @@ export default function RootLayout({
           <Navbar />
           {children}
         </TRPCReactProvider>
+
+        {/* Footer */}
+        <div className="w-full h-52 bg-neutral-200 py-10 pr-16 text-right">
+          <p className="font-bold text-md my-6">© (not copyright-ed) An blog website</p>
+          <p className="text-sm my-2">created by Khoi Truong</p>
+          <p className="text-sm">truong.hnkhoi@outlook.com</p>
+        </div>
       </body>
     </html>
   );

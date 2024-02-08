@@ -137,7 +137,7 @@ export default async function Home() {
 
           <div className="lg:bg-white  mt-4 rounded-xl hidden lg:block md:w-48 lg:w-80">
             <h2 className="mt-6 ml-4 lg:ml-8 font-bold font-sans text-2xl">Authors</h2>
-            {authorsData.map((author) => (
+            {sortedAuthorsData.map((author) => (
               <Link href={`/profile/${author.id}`} key={author.id}>
                 <div key={author.id} className="lg:bg-neutral-50/50 hover:bg-neutral-200 md:w-36 lg:w-72 h-15 overflow-visible flex items-center rounded-xl backdrop-blur-2xl lg:shadow-lg lg:gap-2 p-3 m-4">
                   <img
@@ -186,7 +186,7 @@ export default async function Home() {
                       <div className="flex-grow md:w-96">
                     
                         <Link
-                          className="text-2xl font-bold no-underline hover:text-black/70 dark:hover:text-white"
+                          className="text-2xl font-bold no-underline hover:text-black/70 hover:underline dark:hover:text-white"
                           href={`/posts/${post.id}`}
                         >
                           {post.Title}
@@ -195,14 +195,6 @@ export default async function Home() {
                           by <span className="font-bold">{post.authorName}</span>
                         </p>
                         <p className="text-xs my-2">{formattedDate}</p>
-                        {/* <p className="mt-0 text-justify text-sm">
-                          {post.content ? post.content.slice(0, 150) : ""}...
-                        </p> */}
-                        {/* <div
-                          className="... mt-0 overflow-hidden text-clip text-justify indent-4 text-sm leading-relaxed h-10"
-                          dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
-                        />
-                        <p>...</p> */}
                         <p className="mt-0 text-justify text-sm text-neutral-500">
                           {post.content ? getPlainText(post.content).slice(0, 250) + "..." : ""}
                         </p>
