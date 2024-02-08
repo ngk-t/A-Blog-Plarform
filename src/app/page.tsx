@@ -138,7 +138,7 @@ export default async function Home() {
           <div className="lg:bg-white  mt-4 rounded-xl hidden lg:block md:w-48 lg:w-80">
             <h2 className="mt-6 ml-4 lg:ml-8 font-bold font-sans text-2xl">Authors</h2>
             {authorsData.map((author) => (
-              <Link href={`/profile/${author.id}`}>
+              <Link href={`/profile/${author.id}`} key={author.id}>
                 <div key={author.id} className="lg:bg-neutral-50/50 hover:bg-neutral-200 md:w-36 lg:w-72 h-15 overflow-visible flex items-center rounded-xl backdrop-blur-2xl lg:shadow-lg lg:gap-2 p-3 m-4">
                   <img
                     src={`${author.image}`}
