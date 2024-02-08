@@ -26,6 +26,11 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
+  getAllAuthors: publicProcedure.query(({ ctx }) => {
+    return ctx.db.user.findMany();
+  }),
+  
+
   getSearch: publicProcedure.input(z.object({ 
     query: z.string().min(1),
   }))
