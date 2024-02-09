@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { authorId: string 
   return {
     title: `${author?.name}'s Profile - An Blog Website`, 
     description: "A Blog Platform by ngk-t",
-    icons: [{ rel: "icon", url: "/favicon.ico" }],
+    icons: [{ rel: "icon", url: "/icon.png" }],
   }
 }
 

@@ -12,7 +12,7 @@ import { JSDOM } from 'jsdom';
 export const metadata = {
   title: `An Blog Website - Create New Post`, 
   description: "A Blog Platform by ngk-t",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/icon.png" }],
 };
 
 export default async function Page() {

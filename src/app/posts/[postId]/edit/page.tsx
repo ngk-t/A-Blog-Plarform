@@ -33,7 +33,7 @@ interface PostDataType {
     return {
       title: `Edit: ${data?.Title} - An Blog Website`, 
       description: "A Blog Platform by ngk-t",
-      icons: [{ rel: "icon", url: "/favicon.ico" }],
+      icons: [{ rel: "icon", url: "/icon.png" }],
     }
   }  
 
