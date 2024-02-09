@@ -27,16 +27,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
+          <div className="fixed top-0 z-40 w-full h-14 bg-white/25 backdrop-blur-md"></div>
           <Navbar />
+          <main className="flex-grow">
           {children}
+          </main>
         </TRPCReactProvider>
 
         {/* Footer */}
-        <div className="w-full h-52 bg-neutral-200 py-10 pr-16 text-right">
-          <p className="font-bold text-md my-6">© (not copyright-ed) An blog website</p>
-          <p className="text-sm my-2">created by Khoi Truong</p>
-          <p className="text-sm">truong.hnkhoi@outlook.com</p>
-        </div>
+        <footer className="w-full h-52 bg-white mt-24 py-10 pr-16 text-right">
+        </footer>
       </body>
     </html>
   );

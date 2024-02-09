@@ -102,7 +102,7 @@ const SearchPage = () => {
                         <Link className="hover:text-black/70 hover:underline dark:hover:text-white no-underline text-2xl font-bold" href={`/posts/${post.id}`}>{post.Title}</Link>
                         <p className="text-xs my-2">by <span className="font-bold">{post.createdBy.name}</span></p>
                         <p className="text-xs my-2">{formattedDate}</p>
-                        <p className="mt-0 text-justify text-sm text-neutral-500">
+                        <p className="mt-0 text-left text-sm text-neutral-500">
                           {post.content ? stripHTMLTags(post.content).slice(0, 250) + "..." : ""}
                         </p>
                       </div>
@@ -110,14 +110,14 @@ const SearchPage = () => {
                       
                       {/* Author's profile pic */}
                       <div className="sm:w-32 sm:h-32 hidden sm:ml-4 sm:block">
-                        <div className="text-md flex flex-col items-center">
+                        <Link href={`/profile/${post.createdById}`} key={post.createdById} className="text-md flex flex-col items-center hover:underline">
                           <img
                             src={`${post.createdBy.image}`}
                             alt="Profile Picture"
                             className="h-20 w-20 mt-4 rounded-full"
                           />
                           <span className="mt-6 font-bold">{`${post.createdBy.name}`}</span>
-                        </div>
+                        </Link>
                       </div>  
 
 

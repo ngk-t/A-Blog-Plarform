@@ -4,8 +4,8 @@ import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import getFormattedDate from "lib/getFormattedDate";
-import DOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
+import DOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 // import { createTRPCReact } from '@trpc/react-query';
 
 export default async function Home() {
@@ -14,16 +14,16 @@ export default async function Home() {
   // const data = await api.post.getAll.query();
   // console.log(data)
 
-  const createMarkup = (html : string) => {
+  const createMarkup = (html: string) => {
     return {
       __html: DOMPurify.sanitize(html),
     };
   };
-  
-  const getPlainText = (html : string) => {
+
+  const getPlainText = (html: string) => {
     const dom = new JSDOM(html);
     return dom.window.document.body.textContent ?? "";
-  }
+  };
 
   type PostData = {
     id: string;
@@ -58,8 +58,9 @@ export default async function Home() {
   // Fetch all authors
   const authorsData = await api.post.getAllAuthors.query();
   // Sort authors alphabetically by name
-  const sortedAuthorsData = authorsData.sort((a, b) => (a.name ?? "").localeCompare(b.name ?? ""));
-
+  const sortedAuthorsData = authorsData.sort((a, b) =>
+    (a.name ?? "").localeCompare(b.name ?? ""),
+  );
 
   // Now TypeScript knows that newData is an array of Post objects
 
@@ -79,9 +80,12 @@ export default async function Home() {
         </div>
       </div> */}
 
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-20 ">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem] ">
-          <span className="text-[#cfb225]">An blog</span> website
+      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-28">
+        <h1 className="prose text-left text-4xl font-extrabold tracking-tight sm:text-[3.5rem]">
+          <span className="bg-[#ead985] text-3x1 font-serif italic box-decoration-clone text-[#ffffff] pl-4 pr-4 mr-2 py-[0.3rem]">
+            an Blog
+          </span>{""}
+          website
         </h1>
 
         <div className="flex flex-col items-center gap-2">
@@ -91,14 +95,14 @@ export default async function Home() {
           {/* Sign in function */}
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-neutral-700">
-              {session && <span>Logged in as {session.user?.name}</span>}
+              {session && <span>Welcome back, {session.user?.name}</span>}
             </p>
-            <Link
+            {/* <Link
               href={session ? "/api/auth/signout" : "/api/auth/signin"}
               className="rounded-full bg-neutral-700/10 px-10 py-3 font-semibold no-underline transition hover:bg-neutral-700/5"
             >
               {session ? "Sign out" : "Sign in"}
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -130,32 +134,30 @@ export default async function Home() {
 
         {/* <CrudShowcase /> */}
 
-
-        <div className="flex flex-row gap-2 lg:gap-6 md:columns-2 lg:columns-3">
-          
+        <div className="flex flex-row gap-2 md:columns-2 lg:columns-3 lg:gap-6">
           {/* AUTHORS */}
 
-          <div className="lg:bg-white  mt-4 rounded-xl hidden lg:block md:w-48 lg:w-80">
-            <h2 className="mt-6 ml-4 lg:ml-8 font-bold font-sans text-2xl">Authors</h2>
+          <div className="mt-4  hidden rounded-xl md:w-48 lg:block lg:w-80 lg:bg-white">
+            <h2 className="ml-4 mt-6 font-sans text-2xl font-bold lg:ml-8">
+              Authors
+            </h2>
             {sortedAuthorsData.map((author) => (
               <Link href={`/profile/${author.id}`} key={author.id}>
-                <div key={author.id} className="lg:bg-neutral-50/50 hover:bg-neutral-200 md:w-36 lg:w-72 h-15 overflow-visible flex items-center rounded-xl backdrop-blur-2xl lg:shadow-lg lg:gap-2 p-3 m-4">
+                <div
+                  key={author.id}
+                  className="h-15 m-4 flex items-center overflow-visible rounded-xl p-3 backdrop-blur-2xl hover:bg-neutral-200 md:w-36 lg:w-72 lg:gap-2 lg:bg-white/50 "
+                >
                   <img
                     src={`${author.image}`}
-                    alt={`${author.name}`} 
-                    className="h-20 w-20 rounded-full hidden lg:block"
+                    alt={`${author.name}`}
+                    className="hidden h-20 w-20 rounded-full lg:block"
                   />
                   <h3 className="font-semibold lg:font-bold">{author.name}</h3>
                 </div>
               </Link>
             ))}
           </div>
-          
-          
-          
-          
-          
-          
+
           {/* BLOG FEED */}
 
           <div>
@@ -169,50 +171,48 @@ export default async function Home() {
                 // const author = getAuthor(post.createdById);
 
                 return (
-                  <div 
-                    key={post.id} 
-                    className="my-4 flex relative max-w-prose flex-col gap-4 rounded-xl shadow-md bg-sky-800" 
+                  <div
+                    key={post.id}
+                    className="relative my-4 flex max-w-prose flex-col gap-4 rounded-xl bg-sky-800 shadow-md"
                     style={{
                       backgroundImage: `url(${post.coverPictureURL})`,
-                      backgroundSize: 'cover',
+                      backgroundSize: "cover",
                     }}
                   >
-
-                  <Link href={`/posts/${post.id}`}>
-
-                    <div className="flex bg-neutral-50/70 rounded-b-xl sm:rounded-xl p-4 hover:bg-neutral-200/80 backdrop-blur-2xl mt-12 sm:m-4 md:columns-2"  >
-                      
-                      {/* Main content */}
-                      <div className="flex-grow md:w-96">
-                    
-                        <Link
-                          className="text-2xl font-bold no-underline hover:text-black/70 hover:underline dark:hover:text-white"
-                          href={`/posts/${post.id}`}
-                        >
-                          {post.Title}
-                        </Link>
-                        <p className="text-xs my-2">
-                          by <span className="font-bold">{post.authorName}</span>
-                        </p>
-                        <p className="text-xs my-2">{formattedDate}</p>
-                        <p className="mt-0 text-justify text-sm text-neutral-500">
-                          {post.content ? getPlainText(post.content).slice(0, 250) + "..." : ""}
-                        </p>
-                      </div>
-
-                      {/* Author's profile pic */}
-                      <div className="md:w-32 md:h-32 hidden md:ml-4 md:block">
-                        <div className="text-md flex flex-col items-center">
-                          <img
-                            src={`${post.authorImage}`}
-                            alt="Profile Picture"
-                            className="h-20 w-20 mt-4 rounded-full"
-                          />
-                          <span className="mt-6 font-bold">{`${post.authorName}`}</span>
+                    <Link href={`/posts/${post.id}`}>
+                      <div className="mt-12 flex rounded-b-xl bg-neutral-50/70 p-4 backdrop-blur-2xl hover:bg-neutral-200/80 sm:m-4 sm:rounded-xl md:columns-2">
+                        {/* Main content */}
+                        <div className="flex-grow md:w-96">
+                          <Link
+                            className="text-2xl font-bold no-underline hover:text-black/70 hover:underline dark:hover:text-white"
+                            href={`/posts/${post.id}`}
+                          >
+                            {post.Title}
+                          </Link>
+                          <p className="my-2 text-xs">
+                            by{" "}
+                            <span className="font-bold">{post.authorName}</span>
+                          </p>
+                          <p className="my-2 text-xs">{formattedDate}</p>
+                          <p className="mt-0 text-left text-sm text-neutral-500">
+                            {post.content
+                              ? getPlainText(post.content).slice(0, 250) + "..."
+                              : ""}
+                          </p>
                         </div>
-                      </div>  
 
-                    </div>
+                        {/* Author's profile pic */}
+                        <div className="hidden md:ml-4 md:block md:h-32 md:w-32">
+                          <Link href={`/profile/${post.createdById}`} key={post.createdById} className="text-md flex flex-col items-center hover:underline">
+                            <img
+                              src={`${post.authorImage}`}
+                              alt="Profile Picture"
+                              className="mt-4 h-20 w-20 rounded-full"
+                            />
+                            <span className="mt-6 font-bold">{`${post.authorName}`}</span>
+                          </Link>
+                        </div>
+                      </div>
                     </Link>
                   </div>
                 );
@@ -220,10 +220,7 @@ export default async function Home() {
           </div>
 
           {/* Place-holder */}
-          <div className="hidden lg:block lg:w-80">
-              {/* Something Here */}
-          </div>
-
+          <div className="hidden lg:block lg:w-80">{/* Something Here */}</div>
         </div>
       </div>
     </main>

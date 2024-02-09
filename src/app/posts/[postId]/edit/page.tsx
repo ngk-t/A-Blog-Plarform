@@ -48,9 +48,12 @@ export default async function Page({ params } : { params : {postId : string}}) {
     return (
       <main className="to-98% flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ffffff] from-65% to-[#ffffff]  text-neutral-700">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            <span className="text-[#cfb225]">An blog</span> website
-          </h1>
+        <h1 className="prose text-left text-4xl font-extrabold tracking-tight sm:text-[3.5rem]">
+          <span className="bg-[#ead985] text-3x1 font-serif italic box-decoration-clone text-[#ffffff] pl-4 pr-4 mr-2 py-[0.3rem]">
+            an Blog
+          </span>{""}
+          website
+        </h1>
 
           <p className="text-3xl font-extrabold">
             Please log in as the author to edit post
@@ -67,9 +70,12 @@ export default async function Page({ params } : { params : {postId : string}}) {
     return (
       <main className="to-98% flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ffffff] from-65% to-[#ffffff]  text-neutral-700">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            <span className="text-[#cfb225]">An blog</span> website
-          </h1>
+        <h1 className="prose text-left text-4xl font-extrabold tracking-tight sm:text-[3.5rem]">
+          <span className="bg-[#ead985] text-3x1 font-serif italic box-decoration-clone text-[#ffffff] pl-4 pr-4 mr-2 py-[0.3rem]">
+            an Blog
+          </span>{""}
+          website
+        </h1>
 
           <p className="text-3xl font-extrabold">
             You do not have permission to edit this post

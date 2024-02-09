@@ -36,17 +36,17 @@ export default async function Post({ params }: { params: { postId: string } }) {
       </div>
 
       {/* </div> */}
-      <div className="my-10 flex max-w-prose -translate-y-40 flex-col gap-4 rounded-xl bg-neutral-50/40 p-8 pb-12 shadow-xl backdrop-blur-3xl">
+      <div className="my-10 flex max-w-prose -translate-y-40 flex-col gap-4 sm:rounded-xl bg-neutral-50/40 p-8 pb-12 shadow-xl backdrop-blur-3xl">
         <div className="space-y-4 whitespace-pre-line break-words">
           <h1 className="text-5xl font-bold text-neutral-800">{`${data.Title}`}</h1>
-          <p className="text-md flex items-center">
+          <Link href={`/profile/${data.createdById}`} key={data.createdById} className="text-md flex items-center hover:underline">
             <img
               src={`${data.createdBy.image}`}
               alt="Profile Picture"
               className="h-10 w-10 rounded-full"
             />
-            <span className="ml-2 font-bold">{`${data?.createdBy.name}`}</span>
-          </p>
+            <span className="ml-2 font-bold ">{`${data?.createdBy.name}`}</span>
+          </Link>
           <p className="mb-10 text-xs">{formattedDate}</p>
 
           <div

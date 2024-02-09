@@ -139,7 +139,7 @@ export default async function Profile({ params } : { params : {authorId : string
                       {post.archived && <p className="text-red-500 font-bold no-underline ">[ARCHIVED]</p>}
                       
                       {/* Shows Post Content Preview */}
-                      <p className="mt-0 text-justify text-sm text-neutral-500">
+                      <p className="mt-0 text-left text-sm text-neutral-500">
                           {post.content ? getPlainText(post.content).slice(0, 250) + "..." : ""}
                       </p>
                     </div>
