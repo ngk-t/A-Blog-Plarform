@@ -8,11 +8,18 @@ import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 // import { createTRPCReact } from '@trpc/react-query';
 
+export const metadata = {
+  title: "An Blog Website - Home",
+  description: "A Blog Platform by ngk-t",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+};
+
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
   // const data = await api.post.getAll.query();
   // console.log(data)
+  
 
   const createMarkup = (html: string) => {
     return {

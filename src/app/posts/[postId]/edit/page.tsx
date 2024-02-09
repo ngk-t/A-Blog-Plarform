@@ -27,7 +27,15 @@ interface PostDataType {
     };
   }
 
-  
+  export async function generateMetadata({ params }: { params: { postId: string } }) {
+    const { postId } = params;
+    const data = await api.post.getOne.query({ id: postId });
+    return {
+      title: `Edit: ${data?.Title} - An Blog Website`, 
+      description: "A Blog Platform by ngk-t",
+      icons: [{ rel: "icon", url: "/favicon.ico" }],
+    }
+  }  
 
 export default async function Page({ params } : { params : {postId : string}}) {
   const session = await getServerSession(authOptions);

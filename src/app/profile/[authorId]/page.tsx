@@ -9,7 +9,15 @@ import { PostActions } from "~/app/_components/PostActions";
 import DOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
 
-
+export async function generateMetadata({ params }: { params: { authorId: string } }) {
+  const { authorId } = params;
+  const author = await api.post.getAuthor.query({ id: authorId });
+  return {
+    title: `${author?.name}'s Profile - An Blog Website`, 
+    description: "A Blog Platform by ngk-t",
+    icons: [{ rel: "icon", url: "/favicon.ico" }],
+  }
+}
 
 
 
