@@ -42,6 +42,7 @@ export default function NavbarToggle({ userId, userName }: { userId: string | nu
             )}
             
             <Link href="/" className='p-4 hover:bg-neutral-300/30 rounded-xl sm:hidden'>Home</Link>
+            <Link href="/authors" className='p-4 hover:bg-neutral-300/30 rounded-xl sm:hidden'>Authors</Link>
             <div className="p-4 hover:bg-neutral-300/30 rounded-xl items-center sm:hidden"><Link href="https://github.com/ngk-t/A-Blog-Plarform" >Project&apos;s GitHub</Link></div>
             <div className='mt-4 justify-center m-2 '>
               <Link 

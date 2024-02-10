@@ -24,6 +24,7 @@ export default async function Navbar() {
                 </div>
                 <div className="prose prose-xl sm:mx-auto flex flex-row allign-middle gap-10 pt-4">
                     {/* {status === "authenticated" && (<p> <span>Create New Post</span> </p>)} */}
+                    <Link href="/authors" className='text-black/70 no-underline hover:text-black hidden sm:flex'>Authors</Link>
                     <Link href={`/profile/${session?.user?.id}`} className="text-black/70 no-underline hover:text-black hidden sm:flex "> {session && <span>Profile</span>} </Link>
                     <Link href="/create-post" className="text-black/70 no-underline hover:text-black hidden sm:flex whitespace-nowrap"> {session && <span>Create New Post</span>} </Link>
                     <Link href="https://github.com/ngk-t/A-Blog-Plarform" className="text-black/70 no-underline hover:text-black translate-y-[0.15rem] hidden sm:flex"><FaGithub /></Link>
